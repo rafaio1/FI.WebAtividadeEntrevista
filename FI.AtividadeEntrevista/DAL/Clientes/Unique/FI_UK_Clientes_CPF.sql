@@ -1,0 +1,4 @@
+﻿ALTER TABLE dbo.Clientes
+ADD CONSTRAINT FI_UK_Clientes_CPF
+    UNIQUE (CPF);
+GO

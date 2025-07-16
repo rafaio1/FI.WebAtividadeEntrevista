@@ -135,6 +135,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Feedback.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -183,6 +184,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Clientes\FI.AltClientes.js" />
+    <Content Include="Scripts\Helper\FI.FeedbackCustomizado.js" />
+    <Content Include="Scripts\Mask\FI.Telefone.js" />
+    <Content Include="Scripts\Mask\FI.CEP.js" />
+    <Content Include="Scripts\Mask\FI.CPF.js" />
+    <Content Include="Scripts\Validador\FI.CPF.js" />
     <Content Include="Scripts\Clientes\FI.Clientes.js" />
     <Content Include="Scripts\Clientes\FI.ListClientes.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

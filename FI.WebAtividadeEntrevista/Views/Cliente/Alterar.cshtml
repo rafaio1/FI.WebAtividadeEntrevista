@@ -3,12 +3,27 @@
     ViewBag.Title = "Alterar Cliente";
 }
 @section scripts{
-<script>
+    <script>
         var urlPost = '@Url.Action("Alterar", "Cliente", new { area = "" })';
         var obj = @Html.Raw(Json.Encode(Model));
         var urlRetorno = '@Url.Action("Index", "Cliente", new { area = "" })';
-</script>
+    </script>
     @Scripts.Render("~/bundles/altClientes")
+    @Scripts.Render("~/bundles/validadorPessoaFisica")
+    @Scripts.Render("~/bundles/customizacao")
+    @Scripts.Render("~/bundles/mascaraPessoaFisica")
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const maskCpf = new CPFMask();
+            const maskCep = new CEPMask();
+            const maskTelefone = new TelefoneMask();
+
+            maskCpf.init();
+            maskCep.init();
+            maskTelefone.init();
+        });
+    </script>
 }
 <h2>@Html.Raw(ViewBag.Title)</h2>
 @Html.Partial("Forms")

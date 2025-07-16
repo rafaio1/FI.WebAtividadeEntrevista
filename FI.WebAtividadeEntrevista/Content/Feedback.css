@@ -1,0 +1,31 @@
+﻿
+.input-group,
+.form-floating {
+    position: relative;
+}
+
+.form-control {
+    padding-right: 2.5rem;
+}
+
+.valid-feedback {
+    color: #28a745; 
+}
+
+.invalid-feedback {
+    color: #dc3545; 
+}
+
+.valid-feedback::before {
+    content: "\2713";
+    display: inline-block;
+    margin-right: 0.25rem;
+    font-size: 1.2rem;
+}
+
+.invalid-feedback::before {
+    content: "\2716";
+    display: inline-block;
+    margin-right: 0.25rem;
+    font-size: 1.2rem;
+}

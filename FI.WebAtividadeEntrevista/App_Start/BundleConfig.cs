@@ -38,9 +38,21 @@ namespace FI.WebAtividadeEntrevista
             bundles.Add(new ScriptBundle("~/bundles/altClientes").Include(
                       "~/Scripts/Clientes/FI.AltClientes.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/validadorPessoaFisica").Include(
+                      "~/Scripts/Validador/FI.CPF.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/customizacao").Include(
+                      "~/Scripts/Helper/FI.FeedbackCustomizado.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mascaraPessoaFisica").Include(
+                      "~/Scripts/Mask/FI.CEP.js",
+                      "~/Scripts/Mask/FI.CPF.js",
+                      "~/Scripts/Mask/FI.Telefone.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/Feedback.css"));
 
             bundles.Add(new StyleBundle("~/Content/jtable").Include(
                       "~/Scripts/jtable/themes/metro/darkgray/jtable.css"));

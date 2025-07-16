@@ -7,6 +7,21 @@
         var urlPost = '@Url.Action("Incluir", "Cliente", new { area = "" })';
     </script>
     @Scripts.Render("~/bundles/clientes")
+    @Scripts.Render("~/bundles/validadorPessoaFisica")
+    @Scripts.Render("~/bundles/customizacao")
+    @Scripts.Render("~/bundles/mascaraPessoaFisica")
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const maskCpf = new CPFMask();
+            const maskCep = new CEPMask();
+            const maskTelefone = new TelefoneMask();
+
+            maskCpf.init();
+            maskCep.init();
+            maskTelefone.init();
+        });
+    </script>
 }
 <h2>@Html.Raw(ViewBag.Title)</h2>
 @Html.Partial("Forms")

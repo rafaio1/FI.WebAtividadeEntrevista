@@ -67,5 +67,11 @@ namespace WebAtividadeEntrevista.Models
         /// </summary>
         public string Telefone { get; set; }
 
+        /// <summary>
+        /// CPF
+        /// </summary>
+        [RegularExpression(@"^(?:\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$", ErrorMessage = "Digite um CPF válido")]
+        public string CPF { get; set; }
+
     }    
 }
