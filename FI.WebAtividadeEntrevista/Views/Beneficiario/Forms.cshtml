@@ -1,0 +1,48 @@
+﻿@using System.Web.Mvc.Html;
+
+@{
+    string beneficiario = ViewBag.Guid;
+}
+
+<form id="formCadastroBeneficiario" method="post">
+    @Html.Hidden("Guid", beneficiario)
+    <input id="Id" name="Id" type="hidden">
+    <input id="IdCliente" name="IdCliente" type="hidden">
+    <div class="row-flex">
+        <div class="col-md-4 col-flex1">
+            <div class="form-group">
+                <label for="CPF">CPF:</label>
+                <input required="required" type="text" class="form-control" id="CPF" name="CPF" placeholder="Ex.: 111.222.333-44" maxlength="14" data-mask="cpf">
+            </div>
+        </div>
+        <div class="col-md-4 col-flex1">
+            <div class="form-group">
+                <label for="Nome">Nome:</label>
+                <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: Maria" maxlength="50">
+            </div>
+        </div>
+        <div class="col-md-4 col-flex1 d-flex flex-column flex-nowrap align-content-start justify-content-center align-items-start">
+            <button id="btnSalvarBeneficiario" type="submit" class="btn btn-md btn-success btn-block">
+                Incluir
+            </button>
+            <button id="btnAlterarBeneficiario" type="submit" class="btn btn-md btn-success btn-block" style="display: none;">
+                Alterar
+            </button>
+        </div>
+    </div>
+
+    @*Solicitado para não alterar o Frontend*@
+    @*<table id="gridBeneficiario" class="table"></table>*@
+
+    <table id="tabelaBeneficiarios" class="table-form">
+        <thead>
+            <tr>
+                <th width="30%">CPF</th>
+                <th width="40%">Nome</th>
+                <th width="30%">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</form>

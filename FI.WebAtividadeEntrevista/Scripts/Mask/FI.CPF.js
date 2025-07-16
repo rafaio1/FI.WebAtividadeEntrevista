@@ -25,15 +25,16 @@
 
         _onInput(e) {
             const el = e.target;
+            const formId = el.form ? el.form.id : null;
 
-            // Quantidade de dígitos no cursor de digitação (evitar pular posição ou voltar)
+            // Quantidade de dígitos antes do cursor
             const oldPos = el.selectionStart;
             const rawBefore = el.value.slice(0, oldPos).replace(/\D/g, '').length;
 
             // Formata o valor
             el.value = this._format(el.value);
 
-            // Reposiciona o cursor de digitação do usuário
+            // Reposiciona o cursor
             let digitCount = 0;
             let newPos = el.value.length;
             for (let i = 0; i < el.value.length; i++) {
@@ -42,29 +43,21 @@
             }
             el.setSelectionRange(newPos, newPos);
 
-            // Se for 11 dígitos, válida o cpf
+            // Valida CPF quando tiver 11 dígitos
             const raw = el.value.replace(/\D/g, '');
             if (raw.length === 11) {
                 try {
-                    try {
-                        verificaCpf(raw);
-
-                        FeedbackElemento(el.id, 'CPF válido.', true);
-                        if (typeof this.onValid === 'function') this.onValid(raw);
-
-                    }
-                    catch (err) {
-                        FeedbackElemento(el.id, err.message, false);
-                        if (typeof this.onInvalid === 'function') this.onInvalid(err);
-                    }
-                } catch (err) {
-                    if (typeof this.onInvalid === 'function') {
-                        this.onInvalid(err);
-                    }
+                    verificaCpf(raw);
+                    FeedbackElemento(formId, el.id, 'CPF válido.', true);
+                    if (typeof this.onValid === 'function') this.onValid(raw);
+                }
+                catch (err) {
+                    FeedbackElemento(formId, el.id, err.message, false);
+                    if (typeof this.onInvalid === 'function') this.onInvalid(err);
                 }
             }
             else {
-                FeedbackElemento(el.id, '', null, true);
+                FeedbackElemento(formId, el.id, '', null, true);
             }
         }
 
@@ -72,34 +65,29 @@
             this.inputs = Array.from(document.querySelectorAll(this.selector));
             this.inputs.forEach(input => {
                 input.setAttribute('maxlength', '14');
+
+                const formId = input.form ? input.form.id : null;
                 if (input.value) {
                     input.value = this._format(input.value);
-                    const raw = el.value.replace(/\D/g, '');
+                    const raw = input.value.replace(/\D/g, '');
                     if (raw.length === 11) {
                         try {
-                            try {
-                                verificaCpf(raw);
-
-                                FeedbackElemento(el.id, 'CPF válido.', true);
-                                if (typeof this.onValid === 'function') this.onValid(raw);
-
-                            }
-                            catch (err) {
-                                FeedbackElemento(el.id, err.message, false);
-                                if (typeof this.onInvalid === 'function') this.onInvalid(err);
-                            }
-                        } catch (err) {
-                            if (typeof this.onInvalid === 'function') {
-                                this.onInvalid(err);
-                            }
+                            verificaCpf(raw);
+                            FeedbackElemento(formId, input.id, 'CPF válido.', true);
+                            if (typeof this.onValid === 'function') this.onValid(raw);
                         }
-                    }
-                    else {
-                        FeedbackElemento(el.id, '', null, true);
+                        catch (err) {
+                            FeedbackElemento(formId, input.id, err.message, false);
+                            if (typeof this.onInvalid === 'function') this.onInvalid(err);
+                        }
+                    } else {
+                        FeedbackElemento(formId, input.id, '', null, true);
                     }
                 }
-
-                input.addEventListener('input', this._onInput);
+                
+                ['input', 'paste', 'cut', 'reset'].forEach(evt => {
+                    input.addEventListener(evt, e => this._onInput(e));
+                });
             });
         }
 

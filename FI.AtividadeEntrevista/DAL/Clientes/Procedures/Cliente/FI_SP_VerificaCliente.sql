@@ -1,6 +1,6 @@
-﻿CREATE PROCEDURE dbo.FI_SP_VerificaCliente
+﻿CREATE PROCEDURE [dbo].[FI_SP_VerificaCliente]
 	@CPF VARCHAR(14),
-    @IDCliente BIGINT = 0
+    @IDCliente BIGINT= 0
 AS
 BEGIN
 	SELECT 1 FROM CLIENTES WHERE CPF = @CPF AND ID <> @IDCliente

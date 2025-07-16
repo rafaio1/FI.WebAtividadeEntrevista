@@ -1,4 +1,4 @@
-﻿CREATE PROC FI_SP_ConsCliente
+﻿CREATE PROCEDURE [dbo].[FI_SP_DelCliente]
 	@ID BIGINT
 AS
 BEGIN

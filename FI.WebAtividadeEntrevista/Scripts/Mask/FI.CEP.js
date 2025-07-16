@@ -30,6 +30,7 @@
 
         _onInput(e) {
             const el = e.target;
+            const formId = el.form ? el.form.id : null;
 
             // Preserva posição do cursor em termos de dígitos
             const oldPos = el.selectionStart;
@@ -49,15 +50,15 @@
 
             // Valida quando tiver 8 dígitos
             const raw = el.value.replace(/\D/g, '');
-
             if (raw.length === 8) {
-                FeedbackElemento(el.id, 'CEP válido.', true);
+                FeedbackElemento(formId, el.id, 'CEP válido.', true);
             }
-            else if (el.value.length === 8) {
-                FeedbackElemento(el.id, 'CEP inválido.', false);
+            else if (raw.length > 0) {
+                FeedbackElemento(formId, el.id, 'CEP inválido.', false);
             }
             else {
-                FeedbackElemento(el.id, '', null, true);
+                // Quando não enviar se é válido ou não e adicionar o true ao final irá remover o feedback
+                FeedbackElemento(formId, el.id, '', null, true);
             }
         }
 
@@ -65,19 +66,24 @@
             this.inputs = Array.from(document.querySelectorAll(this.selector));
             this.inputs.forEach(input => {
                 input.setAttribute('maxlength', '9');
+
+                const formId = input.form ? input.form.id : null;
                 if (input.value) {
                     input.value = this._format(input.value);
                     const raw = input.value.replace(/\D/g, '');
                     if (raw.length === 8) {
-                        FeedbackElemento(input.id, 'CEP válido.', true);
+                        FeedbackElemento(formId, input.id, 'CEP válido.', true);
                     } else if (raw.length > 0) {
-                        FeedbackElemento(input.id, 'CEP inválido.', false);
+                        FeedbackElemento(formId, input.id, 'CEP inválido.', false);
                     } else {
-                        FeedbackElemento(input.id, '', null, true);
+                        FeedbackElemento(formId, input.id, '', null, true);
                     }
                 }
 
-                input.addEventListener('input', this._onInput);
+
+                ['input', 'paste', 'cut', 'reset'].forEach(evt => {
+                    input.addEventListener(evt, e => this._onInput(e));
+                });
             });
         }
 

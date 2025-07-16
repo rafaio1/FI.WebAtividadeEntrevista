@@ -8,3 +8,107 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+/* Parametrização da tabela de formulário */
+.table-form {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 1.5rem auto;
+    font-family: Arial, sans-serif;
+}
+
+    .table-form thead th {
+        background-color: #f1f1f1;
+        color: #333;
+        text-align: left;
+        padding: 0.75em;
+        border-bottom: 2px solid #ccc;
+    }
+
+    .table-form tbody td {
+        padding: 0.75em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table-form tbody tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    .table-form .btn {
+        display: inline-block;
+        padding: 0.4em 0.8em;
+        margin-right: 0.3em;
+        font-size: 0.9em;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .table-form .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .table-form .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .table-form .btn:last-child {
+        margin-right: 0;
+    }
+
+
+/* Pegando emprestado algumas propriedades do bootstrap novo */
+/* display: flex; */
+.d-flex {
+    display: flex !important;
+}
+
+/* flex-direction: column; */
+.flex-column {
+    flex-direction: column !important;
+}
+
+/* flex-wrap: nowrap; */
+.flex-nowrap {
+    flex-wrap: nowrap !important;
+}
+
+/* align-content: flex-start; */
+.align-content-start {
+    align-content: flex-start !important;
+}
+
+/* justify-content: center; */
+.justify-content-center {
+    justify-content: center !important;
+}
+
+/* align-items: flex-start; */
+.align-items-start {
+    align-items: flex-start !important;
+}
+
+/* flex: 1 1 auto; */
+.flex-fill {
+    flex: 1 1 auto !important;
+}
+
+/* flex-grow: 1; */
+.flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+/* transforma a div em flex */
+.row-flex {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+/* faz a coluna crescer para preencher todo o espaço */
+.col-flex1 {
+    flex: 1 1 auto !important;
+}

@@ -8,6 +8,7 @@ namespace FI.WebAtividadeEntrevista
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // Jquery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -22,13 +23,11 @@ namespace FI.WebAtividadeEntrevista
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            // Bootstrap
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jtable").Include(
-                      "~/Scripts/jtable/jquery.jtable.min.js",
-                      "~/Scripts/jtable/localization/jquery.jtable.pt-BR.js"));
-
+            // Clientes
             bundles.Add(new ScriptBundle("~/bundles/clientes").Include(
                       "~/Scripts/Clientes/FI.Clientes.js"));
 
@@ -38,21 +37,34 @@ namespace FI.WebAtividadeEntrevista
             bundles.Add(new ScriptBundle("~/bundles/altClientes").Include(
                       "~/Scripts/Clientes/FI.AltClientes.js"));
 
+            // Beneficiarios
+            bundles.Add(new ScriptBundle("~/bundles/beneficiarios").Include(
+                      "~/Scripts/Beneficiarios/FI.Beneficiarios.js"));
+
+            // Validators
             bundles.Add(new ScriptBundle("~/bundles/validadorPessoaFisica").Include(
                       "~/Scripts/Validador/FI.CPF.js"));
 
+            // Customizações
             bundles.Add(new ScriptBundle("~/bundles/customizacao").Include(
                       "~/Scripts/Helper/FI.FeedbackCustomizado.js"));
 
+            // Mascaras
             bundles.Add(new ScriptBundle("~/bundles/mascaraPessoaFisica").Include(
                       "~/Scripts/Mask/FI.CEP.js",
                       "~/Scripts/Mask/FI.CPF.js",
                       "~/Scripts/Mask/FI.Telefone.js"));
 
+            // Css
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/Feedback.css"));
+
+            // Table
+            bundles.Add(new ScriptBundle("~/bundles/jtable").Include(
+                      "~/Scripts/jtable/jquery.jtable.min.js",
+                      "~/Scripts/jtable/localization/jquery.jtable.pt-BR.js"));
 
             bundles.Add(new StyleBundle("~/Content/jtable").Include(
                       "~/Scripts/jtable/themes/metro/darkgray/jtable.css"));

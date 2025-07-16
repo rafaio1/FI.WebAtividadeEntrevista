@@ -1,6 +1,6 @@
 ﻿-- =============================================
 -- Author:      Rafael Antunes
--- Create date: 15/07/2025 20:15
+-- Create date: 15/07/2025 
 -- Description: Função que valida CPF, retorna 1 = válido, 0 = inválido
 -- =============================================
 CREATE FUNCTION dbo.FI_FN_VerificaCpf

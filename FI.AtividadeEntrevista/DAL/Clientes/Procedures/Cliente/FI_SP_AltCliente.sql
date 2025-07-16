@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE dbo.FI_SP_AltCliente
+﻿CREATE PROCEDURE [dbo].[FI_SP_AltCliente]
     @NOME          VARCHAR (50),
     @SOBRENOME     VARCHAR (255),
     @NACIONALIDADE VARCHAR (50),
@@ -21,6 +21,7 @@ BEGIN
     EXEC dbo.FI_SP_VerificaCliente
     @CPF       = @CPF,
     @IDCliente = @Id;
+
     IF @@ROWCOUNT > 0
     BEGIN
         THROW 51004, 'CPF inválido.', 1;

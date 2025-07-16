@@ -31,15 +31,15 @@ namespace FI.AtividadeEntrevista.DAL
 
             DataSet ds = base.Consultar("FI_SP_IncClienteV2", parametros);
             long ret = 0;
-            if (ds.Tables[0].Rows.Count > 0)
-                long.TryParse(ds.Tables[0].Rows[0][0].ToString(), out ret);
+            if (ds.Tables[1].Rows.Count > 0)
+                long.TryParse(ds.Tables[1].Rows[0][0].ToString(), out ret);
             return ret;
         }
 
         /// <summary>
-        /// Inclui um novo cliente
+        /// Consulta o Cliente
         /// </summary>
-        /// <param name="cliente">Objeto de cliente</param>
+        /// <param name="Id">Identificador do Cliente</param>
         internal DML.Cliente Consultar(long Id)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();

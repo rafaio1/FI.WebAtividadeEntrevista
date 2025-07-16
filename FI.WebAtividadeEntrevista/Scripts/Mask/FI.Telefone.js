@@ -41,6 +41,7 @@
 
         _onInput(e) {
             const el = e.target;
+            const formId = el.form ? el.form.id : null;
 
             // guarda posição antiga em termos de dígitos
             const oldPos = el.selectionStart;
@@ -61,17 +62,16 @@
             }
             el.setSelectionRange(newPos, newPos);
 
-            // Valida quando tiver 8 dígitos
+            // Valida quando tiver 11 dígitos
             const raw = el.value.replace(/\D/g, '');
-
             if (raw.length === 11) {
-                FeedbackElemento(el.id, 'Telefone válido.', true);
+                FeedbackElemento(formId, el.id, 'Telefone válido.', true);
             }
-            else if (el.value.length === 8) {
-                FeedbackElemento(el.id, 'Telefone inválido.', false);
+            else if (raw.length > 0 && raw.length < 10) {
+                FeedbackElemento(formId, el.id, 'Telefone inválido.', false);
             }
             else {
-                FeedbackElemento(el.id, '', null, true);
+                FeedbackElemento(formId, el.id, '', null, true);
             }
         }
 
@@ -79,22 +79,26 @@
             this.inputs = Array.from(document.querySelectorAll(this.selector));
             this.inputs.forEach(input => {
                 input.setAttribute('maxlength', '15');
+                const formId = input.form ? input.form.id : null;
+
                 if (input.value) {
                     input.value = this._format(input.value);
-                    const raw = el.value.replace(/\D/g, '');
+                    const raw = input.value.replace(/\D/g, '');
 
                     if (raw.length === 11) {
-                        FeedbackElemento(el.id, 'Telefone válido.', true);
+                        FeedbackElemento(formId, input.id, 'Telefone válido.', true);
                     }
-                    else if (el.value.length === 8) {
-                        FeedbackElemento(el.id, 'Telefone inválido.', false);
+                    else if (raw.length > 0 && raw.length < 10) {
+                        FeedbackElemento(formId, input.id, 'Telefone inválido.', false);
                     }
                     else {
-                        FeedbackElemento(el.id, '', null, true);
+                        FeedbackElemento(formId, input.id, '', null, true);
                     }
                 }
 
-                input.addEventListener('input', this._onInput);
+                ['input', 'paste', 'cut', 'reset'].forEach(evt => {
+                    input.addEventListener(evt, e => this._onInput(e));
+                });
             });
         }
 

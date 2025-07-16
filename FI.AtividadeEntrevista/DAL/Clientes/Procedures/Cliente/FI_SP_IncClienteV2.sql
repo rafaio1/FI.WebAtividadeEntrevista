@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE dbo.FI_SP_IncClienteV2
+﻿CREATE PROCEDURE [dbo].[FI_SP_IncClienteV2]
     @NOME          VARCHAR (50),
     @SOBRENOME     VARCHAR (255),
     @NACIONALIDADE VARCHAR (50),
@@ -11,7 +11,8 @@
     @CPF           VARCHAR (14)
 AS
 BEGIN
-    SET NOCOUNT, XACT_ABORT ON;
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
 
     -- Valida o CPF, se der erro vai estourar uma Exception
     EXEC dbo.FI_SP_VerificaCpf @CPF;
@@ -25,16 +26,16 @@ BEGIN
 
     -- Será executado após validar esse CPF, fiz por procedure para pegar o erro específico
     -- Ajustando a mensagem de retorno ao usuário 
-    BEGIN TRY
+    --BEGIN TRY
     INSERT INTO CLIENTES
         (NOME, SOBRENOME, NACIONALIDADE, CEP, ESTADO, CIDADE, LOGRADOURO, EMAIL, TELEFONE, CPF)
     VALUES
         (@NOME, @SOBRENOME, @NACIONALIDADE, @CEP, @ESTADO, @CIDADE, @LOGRADOURO, @EMAIL, @TELEFONE, @CPF);
-    END TRY
-    BEGIN CATCH
-        THROW 50001, 'Erro interno ao salvar os dados, favor revisar o preenchimento.', 1;
-    END CATCH
+    --END TRY
+    --BEGIN CATCH
+    --    THROW 50001, 'Erro interno ao salvar os dados, favor revisar o preenchimento.', 1;
+    --END CATCH
 
     -- Retorno o ID gerado
-    SELECT SCOPE_IDENTITY();
+    SELECT CAST(SCOPE_IDENTITY() AS BIGINT) AS NovoId;
 END

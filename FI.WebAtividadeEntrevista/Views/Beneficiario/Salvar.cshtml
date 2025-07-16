@@ -1,0 +1,39 @@
+﻿@section scripts{
+    <script>
+        var urlPostBeneficiario = '@Url.Action("Incluir", "Beneficiario", new { area = "" })';
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            const maskCpf = new CPFMask();
+            const maskCep = new CEPMask();
+            const maskTelefone = new TelefoneMask();
+
+            maskCpf.init();
+            maskCep.init();
+            maskTelefone.init();
+        });
+    </script>
+}
+
+<div id="modalBeneficiario@(ViewBag.Guid)" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Beneficiários</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("Forms")
+            </div>
+
+
+            @*Melhorar a usabilidade do formulário*@
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>*@
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div> <!-- /.modal -->
+
+@Html.Partial("_Excluir")

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -58,6 +59,17 @@ namespace FI.AtividadeEntrevista.DAL
             try
             {
                 adapter.Fill(ds);
+            }
+            catch (SqlException ex)
+            {
+                // Como fiz algumas customizações no banco para ter códigos especificos de erro,
+                // deixei aqui um exemplo de como pegar essas exceptions e customizar caso necessário
+
+                // Erros maior que 50.000 são customizações do SQL Server
+                if (ex.Number > 50000)          
+                    throw new Exception(ex.Message);  
+                
+                throw new Exception("Infelizmente aconteceu um erro inesperado.\n Estamos trabalhando para melhor lhe atender.");                          
             }
             finally
             {

@@ -4,30 +4,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using WebAtividadeEntrevista.Models;
+using WebAtividadeEntrevista.Service;
+
 
 namespace WebAtividadeEntrevista.Controllers
 {
     public class ClienteController : Controller
     {
+        private readonly BeneficiariosCacheService _beneficiariosCacheService = new BeneficiariosCacheService();
+
+
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-
+        [HttpGet]
         public ActionResult Incluir()
         {
+            ViewBag.Guid = Guid.NewGuid().ToString();
+
             return View();
         }
 
         [HttpPost]
-        public JsonResult Incluir(ClienteModel model)
+        public JsonResult Incluir(ClienteModel model, string guid)
         {
             BoCliente bo = new BoCliente();
-            
+            BoBeneficiario boBene = new BoBeneficiario();
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -39,31 +47,34 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
-                
-                model.Id = bo.Incluir(new Cliente()
-                {                    
-                    CEP = model.CEP,
+                var beneficiarios = _beneficiariosCacheService.Obter(guid);
+
+                model.Id = bo.Incluir(new Cliente(model.CPF, model.Email, model.Telefone, model.CEP)
+                {
                     Cidade = model.Cidade,
-                    Email = model.Email,
                     Estado = model.Estado,
                     Logradouro = model.Logradouro,
                     Nacionalidade = model.Nacionalidade,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone,
-                    CPF = Regex.Replace(model.CPF, @"\D", "")
                 });
 
-           
+                if (beneficiarios != null && beneficiarios.Count() > 0)
+                {
+                    boBene.SalvarLista(beneficiarios, model.Id);
+                }
+
+
                 return Json("Cadastro efetuado com sucesso");
             }
         }
 
         [HttpPost]
-        public JsonResult Alterar(ClienteModel model)
+        public JsonResult Alterar(ClienteModel model, string guid)
         {
             BoCliente bo = new BoCliente();
-       
+            BoBeneficiario boBene = new BoBeneficiario();
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -75,21 +86,24 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
-                bo.Alterar(new Cliente()
+                var beneficiarios = _beneficiariosCacheService.Obter(guid);
+
+                bo.Alterar(new Cliente(model.CPF, model.Email, model.Telefone, model.CEP)
                 {
                     Id = model.Id,
-                    CEP = model.CEP,
                     Cidade = model.Cidade,
-                    Email = model.Email,
                     Estado = model.Estado,
                     Logradouro = model.Logradouro,
                     Nacionalidade = model.Nacionalidade,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone,
-                    CPF = Regex.Replace(model.CPF, @"\D", "")
                 });
-                               
+
+                if (beneficiarios != null && beneficiarios.Count() > 0)
+                {
+                    boBene.SalvarLista(beneficiarios, model.Id);
+                }
+
                 return Json("Cadastro alterado com sucesso");
             }
         }
@@ -97,6 +111,8 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpGet]
         public ActionResult Alterar(long id)
         {
+            ViewBag.Guid = Guid.NewGuid().ToString();
+
             BoCliente bo = new BoCliente();
             Cliente cliente = bo.Consultar(id);
             Models.ClienteModel model = null;
@@ -118,7 +134,7 @@ namespace WebAtividadeEntrevista.Controllers
                     CPF = cliente.CPF
                 };
 
-            
+
             }
 
             return View(model);

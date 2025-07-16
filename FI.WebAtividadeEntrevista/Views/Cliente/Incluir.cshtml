@@ -5,14 +5,20 @@
 @section scripts{
     <script>
         var urlPost = '@Url.Action("Incluir", "Cliente", new { area = "" })';
+        var urlAlteracaoBeneficiario = '@Url.Action("Alterar", "Beneficiario", new { guid = ViewBag.Guid })';
+        var urlDelecaoBeneficiario = '@Url.Action("Alterar", "Beneficiario", new { guid = ViewBag.Guid })';
+        var urlBeneficiarioList = '@Url.Action("BeneficiarioList", "Beneficiario")';
+        var guid = '@(ViewBag.Guid)';
+        var idModalBeneficiario = `modalBeneficiario${guid}`;
     </script>
     @Scripts.Render("~/bundles/clientes")
     @Scripts.Render("~/bundles/validadorPessoaFisica")
     @Scripts.Render("~/bundles/customizacao")
     @Scripts.Render("~/bundles/mascaraPessoaFisica")
+    @Scripts.Render("~/bundles/beneficiarios")
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        $(document).ready(function () {
             const maskCpf = new CPFMask();
             const maskCep = new CEPMask();
             const maskTelefone = new TelefoneMask();
@@ -21,7 +27,13 @@
             maskCep.init();
             maskTelefone.init();
         });
+
+        function CadastrarBeneficiario() {
+            $('#modalBeneficiario' + '@ViewBag.Guid').modal('show');
+        }
     </script>
 }
 <h2>@Html.Raw(ViewBag.Title)</h2>
 @Html.Partial("Forms")
+
+@Html.Action("Incluir", "Beneficiario", new { guid = ViewBag.Guid })

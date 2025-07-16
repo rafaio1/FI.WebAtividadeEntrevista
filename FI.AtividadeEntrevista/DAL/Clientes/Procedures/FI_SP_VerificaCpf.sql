@@ -1,9 +1,9 @@
 ﻿-- =============================================
 -- Author:      Rafael Antunes
--- Create date: 15/07/2025 20:15
+-- Create date: 15/07/2025
 -- Description: Valida CPF
 -- =============================================
-CREATE PROCEDURE dbo.FI_SP_VerificaCpf
+CREATE PROCEDURE [dbo].[FI_SP_VerificaCpf]
     @CPF VARCHAR(14)  -- 14 para permitir ponto e hífen, se vier mascarado
 AS
 BEGIN
@@ -11,14 +11,11 @@ BEGIN
     -- Ativo o XACT_ABORT para qualquer erro de execução literalmente parar a execução, forçar tambem um ROLLBACK para tratativa de erro
     SET NOCOUNT, XACT_ABORT ON;
 
-    IF @CPF IS NULL
-        THROW 51005, 'CPF não pode ser nulo.', 1;
-
     -- Supondo um ambiente de produção da aplicação, onde terá mais inserts e updates usando essa procedure (não diretamente na tabela)
     -- Tambem vou criar triggers para exemplificação de como seria, se caso tivesse de usar trigger
 
     -- Removo mascara do CPF mesmo que não tenha para prevenção
-    DECLARE @CpfLimpo CHAR(11) = REPLACE(REPLACE(REPLACE(@CPF, '.', ''), '-', ''), ' ', '');
+    DECLARE @CpfLimpo VARCHAR(11) = REPLACE(REPLACE(REPLACE(@CPF, '.', ''), '-', ''), ' ', '');
 
     -- Verifica comprimento da string resultante e verifica se não está usando números repetidos tipo 111.111.111-11
     IF LEN(@CpfLimpo) <> 11 OR @CpfLimpo LIKE REPLICATE(SUBSTRING(@CpfLimpo,1,1), 11)
@@ -48,7 +45,7 @@ BEGIN
     SET @Resultado = 11 - (@Soma % 11);
 
     -- Se esse somatório der 10, o dígito validador é 0
-    IF @Resultado >= 10 SET @Resultado = 0;
+    IF @Resultado = 10 SET @Resultado = 0;
 
     -- Agora testo se o meu dígito calculado é o mesmo do cpf na posição 11
     IF @Resultado <> CAST(SUBSTRING(@CpfLimpo, 10, 1) AS INT)
@@ -66,7 +63,7 @@ BEGIN
     SET @Resultado = 11 - (@Soma % 11);
 
     -- Se esse somatório der 10, o dígito validador é 0
-    IF @Resultado >= 10 SET @Resultado = 0;
+    IF @Resultado = 10 SET @Resultado = 0;
 
     -- Agora testo se o meu dígito calculado é o mesmo do cpf na posição 12
     IF @Resultado <> CAST(SUBSTRING(@CpfLimpo, 11, 1) AS INT)

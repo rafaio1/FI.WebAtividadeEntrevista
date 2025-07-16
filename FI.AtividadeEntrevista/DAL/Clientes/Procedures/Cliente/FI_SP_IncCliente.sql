@@ -1,4 +1,4 @@
-﻿CREATE PROC FI_SP_IncCliente
+﻿CREATE PROCEDURE [dbo].[FI_SP_IncCliente]
     @NOME          VARCHAR (50) ,
     @SOBRENOME     VARCHAR (255),
     @NACIONALIDADE VARCHAR (50) ,
