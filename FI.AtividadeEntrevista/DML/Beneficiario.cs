@@ -39,6 +39,9 @@ namespace FI.AtividadeEntrevista.DML
             if (string.IsNullOrWhiteSpace(nome))
                 throw new Exception("Nome não pode ser vazio.");
 
+            if (string.IsNullOrWhiteSpace(cpf))
+                throw new Exception("CPF não pode ser vazio.");
+
             var cpfDigitos = new string(cpf.Where(char.IsDigit).ToArray());
 
             if (cpfDigitos.Length != 11)

@@ -113,7 +113,7 @@ $(function () {
                 resetForm();
             })
             .fail(response => {
-                ModalDialogBeneficiario("Erro ao incluír.Tente novamente.", response, idModalBeneficiario)
+                ModalDialogBeneficiario("Erro ao incluír", response.responseJSON.Message, idModalBeneficiario)
             });
     });
 
@@ -134,7 +134,7 @@ $(function () {
                 resetForm();
             })
             .fail(response => {
-                ModalDialogBeneficiario("Erro ao alterar.Tente novamente.", response, idModalBeneficiario)
+                ModalDialogBeneficiario("Erro ao alterar", response.responseJSON.Message, idModalBeneficiario)
             });
     });
 
@@ -179,7 +179,7 @@ $(function () {
                 $selectedRow = null;
             })
             .fail(response => {
-                ModalDialogBeneficiario("Erro ao excluir.Tente novamente.", response, idModalBeneficiario)
+                ModalDialogBeneficiario("Erro ao excluir", response.responseJSON.Message, idModalBeneficiario)
             });
     });
      

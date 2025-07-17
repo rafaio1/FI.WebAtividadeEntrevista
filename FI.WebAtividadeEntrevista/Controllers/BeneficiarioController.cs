@@ -32,31 +32,55 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpPost]
         public JsonResult Incluir(BeneficiarioModel model, string guid)
         {
-            var beneficiarios = new Beneficiario(model.Id, model.Nome, model.CPF, model.IDCliente);
+            try
+            {
+                var beneficiarios = new Beneficiario(model.Id, model.Nome, model.CPF, model.IDCliente);
 
-            _beneficiariosCacheService.Salvar(guid, beneficiarios);
+                _beneficiariosCacheService.Salvar(guid, beneficiarios);
 
-            return Json("Cadastro efetuado com sucesso");
+                return Json("Cadastro efetuado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         [HttpPost]
         public JsonResult Alterar(BeneficiarioModel model, string guid)
         {
-            var beneficiarios = new Beneficiario(model.Id, model.Nome, model.CPF, model.IDCliente);
+            try
+            {
+                var beneficiarios = new Beneficiario(model.Id, model.Nome, model.CPF, model.IDCliente);
 
-            _beneficiariosCacheService.Salvar(guid, beneficiarios);
+                _beneficiariosCacheService.Salvar(guid, beneficiarios);
 
-            return Json("Alteração efetuada com sucesso");
+                return Json("Alteração efetuada com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         [HttpPost]
         public JsonResult Excluir(BeneficiarioModel model, string guid)
         {
-            var beneficiarios = new Beneficiario(model.Id, model.Nome, model.CPF, model.IDCliente);
+            try
+            {
+                var beneficiarios = new Beneficiario(model.Id, model.Nome, model.CPF, model.IDCliente);
 
-            _beneficiariosCacheService.Remover(guid, beneficiarios);
+                _beneficiariosCacheService.Remover(guid, beneficiarios);
 
-            return Json("Exclusão efetuado com sucesso");
+                return Json("Exclusão efetuado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         [HttpGet]
